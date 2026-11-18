@@ -76,7 +76,7 @@ const defaultData = {
     {
       title: "Fraternal fellowship",
       src: "assets/order-brethren.jpg",
-      caption: "Brethren pictured in formal dress, suitable for historical and news sections."
+      caption: "2015 Cambridge, England. Grand Commanders, left to right: D. Allen Surratt, KGC; David L. Hargett, KGC; Paul W. Johnston, KGC."
     },
     {
       title: "John Raymond Shute II",

@@ -1,0 +1,26 @@
+name: Check translations
+
+# Runs on every update and lists any English text that has no French, Greek,
+# Spanish or Portuguese translation yet. It does not block the website deployment.
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  translations:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install headless browser
+        run: |
+          npm install --no-save --no-package-lock playwright@1.48.2
+          npx playwright install --with-deps chromium
+      - name: Check every text has a translation
+        run: node tools/check-translations.js

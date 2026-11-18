@@ -34,4 +34,5 @@ The site is available in English, French, Greek, Spanish and Brazilian Portugues
 - `i18n-data.js` holds the translations, keyed by the exact English string, so any string without a translation simply stays in English.
 - Offices, bodies, degrees and other technical Masonic terms are given in the local language with the standard English term beside them in brackets.
 - New English text added to the site needs a matching entry in `i18n-data.js` for each language.
+- The **Check translations** GitHub check runs on every update (`.github/workflows/translations.yml`, using `tools/check-translations.js`). It lists any English text that has no French, Greek, Spanish or Portuguese translation in the check's summary and turns red until they are added. It does not stop the website from deploying. To run it locally: `npm install --no-save playwright && node tools/check-translations.js`.
 - Translations should be reviewed by native Masonic speakers of each jurisdiction before wider use.

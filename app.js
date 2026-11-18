@@ -320,3 +320,25 @@ wireNavigation();
 wireBuilder();
 renderAll();
 window.I18N.onChange(renderAll);
+
+// Keep the captions under the two story photos the same height, whether the
+// photos sit side by side or stack on narrow screens, and in every language.
+function equaliseStoryCaptions() {
+  const captions = document.querySelectorAll(".story-photo .caption");
+  if (captions.length < 2) return;
+  captions.forEach((caption) => { caption.style.minHeight = ""; });
+  const tallest = Math.max(...Array.from(captions, (caption) => caption.offsetHeight));
+  captions.forEach((caption) => { caption.style.minHeight = `${tallest}px`; });
+}
+
+let storyCaptionFrame = 0;
+function scheduleStoryCaptions() {
+  cancelAnimationFrame(storyCaptionFrame);
+  storyCaptionFrame = requestAnimationFrame(equaliseStoryCaptions);
+}
+
+window.addEventListener("resize", scheduleStoryCaptions);
+window.addEventListener("load", scheduleStoryCaptions);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleStoryCaptions);
+window.I18N.onChange(scheduleStoryCaptions);
+scheduleStoryCaptions();

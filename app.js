@@ -330,8 +330,27 @@ document.querySelector("#toggle-officers").addEventListener("click", () => {
   renderOfficers();
 });
 
+function openBuilderFromHash() {
+  const builder = document.querySelector("#builder");
+  if (location.hash !== "#builder" || !builder.hidden) return;
+
+  const code = window.prompt(T("Enter the Builder access code."));
+  if (code !== "1966") {
+    history.replaceState(history.state, "", location.pathname + location.search);
+    if (code !== null) window.alert(T("Incorrect access code."));
+    return;
+  }
+
+  wireBuilder();
+  builder.hidden = false;
+  builder.inert = false;
+  builder.focus({ preventScroll: true });
+  builder.scrollIntoView();
+}
+
 wireNavigation();
-wireBuilder();
+window.addEventListener("hashchange", openBuilderFromHash);
+openBuilderFromHash();
 renderAll();
 window.I18N.onChange(renderAll);
 

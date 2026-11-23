@@ -235,7 +235,18 @@ h3 {
   letter-spacing: 0.08em;
 }
 
-.diary-button::before,
+.site-nav .diary-button {
+  padding: 0.36rem 0.75rem;
+}
+
+.diary-button::before {
+  flex: 0 0 1.2rem;
+  height: 1.2rem;
+  background: linear-gradient(135deg, var(--gold-soft), var(--gold));
+  clip-path: polygon(4% 99%, 27% 67%, 25% 49%, 41% 24%, 59% 10%, 96% 2%, 88% 29%, 70% 48%, 57% 54%, 76% 52%, 59% 68%, 34% 74%, 9% 100%);
+  content: "";
+}
+
 .diary-button::after {
   width: 0.32rem;
   height: 0.32rem;

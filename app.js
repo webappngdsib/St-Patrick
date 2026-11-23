@@ -330,27 +330,25 @@ document.querySelector("#toggle-officers").addEventListener("click", () => {
   renderOfficers();
 });
 
-function openBuilderFromHash() {
+document.querySelector("#open-builder").addEventListener("click", (event) => {
   const builder = document.querySelector("#builder");
-  if (location.hash !== "#builder" || !builder.hidden) return;
+  if (builder.hidden) {
+    const code = window.prompt(T("Enter the Builder access code."));
+    if (code !== "1966") {
+      if (code !== null) window.alert(T("Incorrect access code."));
+      return;
+    }
 
-  const code = window.prompt(T("Enter the Builder access code."));
-  if (code !== "1966") {
-    history.replaceState(history.state, "", location.pathname + location.search);
-    if (code !== null) window.alert(T("Incorrect access code."));
-    return;
+    wireBuilder();
+    builder.hidden = false;
+    builder.inert = false;
+    event.currentTarget.setAttribute("aria-expanded", "true");
   }
-
-  wireBuilder();
-  builder.hidden = false;
-  builder.inert = false;
   builder.focus({ preventScroll: true });
   builder.scrollIntoView();
-}
+});
 
 wireNavigation();
-window.addEventListener("hashchange", openBuilderFromHash);
-openBuilderFromHash();
 renderAll();
 window.I18N.onChange(renderAll);
 

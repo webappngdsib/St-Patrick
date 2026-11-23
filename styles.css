@@ -1647,12 +1647,6 @@ html.path-full {
 }
 
 /* Contact, webmaster and legal pages */
-.contact-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.25rem;
-}
-
 .contact-card {
   padding: 1.5rem;
   border: 1px solid var(--line);
@@ -1689,30 +1683,11 @@ html.path-full {
   color: var(--ink-soft);
 }
 
-.webmaster-card {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-}
-
-.webmaster-card h3 {
-  margin: 0.2rem 0 0.4rem;
-}
-
-.webmaster-card p {
-  margin: 0;
-}
-
 .webmaster-photo {
   flex: none;
   object-fit: cover;
   border: 2px solid var(--gold);
   border-radius: 50%;
-}
-
-.webmaster-photo.large {
-  width: 120px;
-  height: 120px;
 }
 
 .site-footer .footer-brand {
@@ -1759,6 +1734,12 @@ html.path-full {
 
 .site-footer .footer-credit strong {
   color: #fff;
+}
+
+.footer-builder {
+  justify-self: start;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.85rem;
 }
 
 .site-footer .footer-copy {
@@ -1845,17 +1826,4 @@ html.path-full {
 
 .legal-section li {
   margin-bottom: 0.5rem;
-}
-
-@media (max-width: 920px) {
-  .contact-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 520px) {
-  .webmaster-card {
-    flex-direction: column;
-    align-items: flex-start;
-  }
 }

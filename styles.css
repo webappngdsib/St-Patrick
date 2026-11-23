@@ -221,6 +221,39 @@ h3 {
   color: inherit;
 }
 
+.button.diary-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.68rem 1.3rem;
+  border: 4px double var(--gold);
+  border-radius: 4px;
+  background: linear-gradient(160deg, #194c36, #0b261a);
+  color: var(--gold-soft);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+  font-family: var(--serif);
+  letter-spacing: 0.08em;
+}
+
+.diary-button::before,
+.diary-button::after {
+  width: 0.32rem;
+  height: 0.32rem;
+  background: var(--gold);
+  content: "";
+  transform: rotate(45deg);
+}
+
+.button.diary-button:hover {
+  border-color: var(--gold-soft);
+  background: linear-gradient(160deg, #255d43, #103524);
+}
+
+.button.diary-button:focus-visible {
+  outline: 2px solid var(--gold-soft);
+  outline-offset: 4px;
+}
+
 .hero-register {
   position: absolute;
   right: clamp(1rem, 4vw, 4rem);

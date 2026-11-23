@@ -6,7 +6,6 @@ const defaultData = {
     { year: "2024", name: "Florida Lodge T.I.", jurisdiction: "Florida", status: "Time Immemorial" },
     { year: "2024", name: "Lorica Lodge T.I.", jurisdiction: "Indiana", status: "Time Immemorial" },
     { year: "2024", name: "Eri Lodge T.I.", jurisdiction: "England", status: "Time Immemorial" },
-    { year: "2024", name: "Eolas Lodge T.I.", jurisdiction: "Scotland", status: "Time Immemorial" }
   ],
   officers: [
     { office: "Grand Commander", name: "Sir Knight Paul Weldon Johnston", postnominal: "KGC" },
@@ -20,10 +19,8 @@ const defaultData = {
     { office: "Grand Junior Deacon", name: "Sir Knight Jean-Philippe Dakhil", postnominal: "" },
     { office: "Grand Herald", name: "Sir Knight Joseph Walter McIntyre", postnominal: "" },
     { office: "Grand Herald", name: "Sir Knight Jason Critchlow Varner", postnominal: "KGC" },
-    { office: "Grand Pursuivant", name: "Sir Knight Robert Joseph Currie", postnominal: "" },
     { office: "Grand Pursuivant", name: "Sir Knight Graham John Hancock", postnominal: "" },
     { office: "Grand Pursuivant", name: "Sir Knight Simon David Robinson", postnominal: "" },
-    { office: "Grand Deacon", name: "Sir Knight Daniel James McMeeken", postnominal: "" },
     { office: "Grand Sentinel", name: "Sir Knight Paul Stephen Hollebone", postnominal: "" }
   ],
   commanders: [
@@ -87,19 +84,36 @@ const defaultData = {
 };
 
 const storageKey = "mosp-site-data";
+const removedOfficers = new Set([
+  "robert joseph currie",
+  "daniel james mcmeeken",
+  "daniel james mckeen"
+]);
 let data = loadData();
 let showAllOfficers = false;
 
 function loadData() {
   try {
     const saved = localStorage.getItem(storageKey);
-    return saved ? JSON.parse(saved) : structuredClone(defaultData);
+    return saved ? removeRetiredListings(JSON.parse(saved)) : structuredClone(defaultData);
   } catch {
     return structuredClone(defaultData);
   }
 }
 
+function removeRetiredListings(content) {
+  content.lodges = content.lodges.filter(
+    ({ name }) => String(name).trim().toLowerCase() !== "eolas lodge t.i."
+  );
+  content.officers = content.officers.filter(({ name }) => {
+    const normalized = String(name).trim().toLowerCase().replace(/^sir knight\s+/, "");
+    return !removedOfficers.has(normalized);
+  });
+  return content;
+}
+
 function saveData() {
+  removeRetiredListings(data);
   localStorage.setItem(storageKey, JSON.stringify(data));
 }
 
